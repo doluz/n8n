@@ -1,9 +1,8 @@
 FROM n8nio/n8n:latest
 
-# Install tini for Heroku compatibility
-RUN apk add --no-cache tini
+RUN apt-get update && apt-get install -y --no-install-recommends tini && rm -rf /var/lib/apt/lists/*
 
 ENV TINI_SUBREAPER=1
 
-ENTRYPOINT ["/sbin/tini", "--"]
+ENTRYPOINT ["/usr/bin/tini", "--"]
 CMD ["n8n"]
